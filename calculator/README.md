@@ -1,0 +1,1 @@
+![Calculator layout](https://github.com/ykropchik/mobile-development/tree/main/Android/calculator/layout.jpg)
