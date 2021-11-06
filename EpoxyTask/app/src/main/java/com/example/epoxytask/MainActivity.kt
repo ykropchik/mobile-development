@@ -1,9 +1,8 @@
-package com.example.recyclerviewtask
+package com.example.epoxytask
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.epoxy.EpoxyRecyclerView
 
 class MainActivity : AppCompatActivity() {
     var itemsList: List<Triple<Int, String, String>> = listOf(
@@ -25,8 +24,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView: RecyclerView = findViewById(R.id.rvList)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CustomRecyclerAdapter(itemsList)
+        var epoxyRecyclerView: EpoxyRecyclerView = findViewById(R.id.rvEpoxy)
+        epoxyRecyclerView.addItemDecoration(EpoxyCustomDecorator(this))
+
+        val resources = mutableListOf<GridItem>()
+
+        itemsList.forEach {
+            resources.add(GridItem(it.first, it.second, it.third))
+        }
+
     }
 }
