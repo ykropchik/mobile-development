@@ -12,8 +12,8 @@ import android.widget.Button
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import android.content.BroadcastReceiver
-
-
+import android.content.IntentFilter
+import android.util.Log
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,14 +42,38 @@ class MainActivity : AppCompatActivity() {
         createNotificationChannel(firstChannel)
         createNotificationChannel(secondChannel)
 
+        val receiver: BroadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                Log.d("LOG","Delete notify")
+                if(intent.action == "First channel") {
+                    if(firstChannel.notificationCount >= 3) {
+                        firstChannel.notificationCount = 0
+                    } else {
+                        firstChannel.notificationCount--
+                    }
+                } else {
+                    if(secondChannel.notificationCount >= 3) {
+                        secondChannel.notificationCount = 0
+                    } else {
+                        secondChannel.notificationCount--
+                    }
+                }
+
+                unregisterReceiver(this)
+            }
+        }
+
         firstBtn.setOnClickListener {
             ++firstChannel.notificationCount
 
+            val pendingIntent: PendingIntent  = PendingIntent.getBroadcast(this, 0, Intent("First channel"), 0)
+            registerReceiver(receiver, IntentFilter("First channel"))
             val builder = NotificationCompat.Builder(this, firstChannel.id)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("Первый канал уведомлений")
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setDeleteIntent(pendingIntent)
 
             if (firstChannel.notificationCount >= 3) {
                 val mNotificationManager =
@@ -71,11 +95,14 @@ class MainActivity : AppCompatActivity() {
         secondBtn.setOnClickListener {
             ++secondChannel.notificationCount
 
+            val pendingIntent: PendingIntent  = PendingIntent.getBroadcast(this, 0, Intent("Second channel"), 0)
+            registerReceiver(receiver, IntentFilter("Second channel"))
             val builder = NotificationCompat.Builder(this, secondChannel.id)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("Второй канал уведомлений")
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setDeleteIntent(pendingIntent)
 
             if (secondChannel.notificationCount >= 3) {
                 val mNotificationManager =
