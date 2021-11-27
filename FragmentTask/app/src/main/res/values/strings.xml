@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FragmentTask</string>
+    <string name="title_first">Первая</string>
+    <string name="title_second">Вторая</string>
+</resources>
