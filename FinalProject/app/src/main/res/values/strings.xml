@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_subtitle">Created by ykropchik</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="menu_search">Поиск</string>
+    <string name="menu_savedRecipes">Сохраненные фото</string>
+    <string name="menu_settings">Настройки</string>
+
+    <string name="photo_details_author">Автор</string>
+    <string name="photo_details_views">Просмотры</string>
+    <string name="photo_details_likes">Лайки</string>
+    <string name="photo_details_downloads">Скачивания</string>
+
+    <string name="photo_download">Загрузка фото</string>
+    <string name="photo_download_starting">Начинаем загрузку</string>
+    <string name="photo_downloading_process">Заруженно:</string>
+    <string name="photo_download_ending">Загрузка завершена</string>
+</resources>

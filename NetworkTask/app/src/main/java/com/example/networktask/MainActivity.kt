@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 val userLogin: TextView = findViewById(R.id.tvLogin)
                 val publicRepos: TextView = findViewById(R.id.tvPublicRepos)
 
-                Glide.with(applicationContext).load(userInfo?.avatarUrl).into(userAvatar);
+                Glide.with(applicationContext).load(userInfo?.avatarUrl).into(userAvatar)
                 userLogin.text = userInfo?.login
                 publicRepos.text = "Открытых репозиториев: " + userInfo?.publicRepos.toString()
 
