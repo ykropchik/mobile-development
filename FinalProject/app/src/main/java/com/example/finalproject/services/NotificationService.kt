@@ -13,6 +13,7 @@ import android.os.Build
 import android.app.IntentService
 import android.util.Log
 import com.example.finalproject.R
+import com.example.finalproject.configs.Constants
 import com.example.finalproject.configs.Constants.APP_STORE_DIR_NAME
 import com.example.finalproject.configs.Constants.DOWNLOAD_URL
 import com.example.finalproject.configs.Constants.PROGRESS_UPDATE
@@ -72,9 +73,12 @@ class NotificationService: IntentService("Service") {
             body.contentLength().toInt()
         )
         val fileExtension = body.contentType()?.subtype()
-        dirManage()
+        val appStore = File(Environment.getExternalStorageDirectory(), APP_STORE_DIR_NAME)
+        if (!appStore.exists()) {
+            appStore.mkdirs()
+        }
         val outputFile = File(
-            File(Environment.getExternalStorageDirectory(), APP_STORE_DIR_NAME),
+            appStore,
             "$photoId.$fileExtension"
         )
         val outputStream: OutputStream = FileOutputStream(outputFile)
@@ -92,13 +96,6 @@ class NotificationService: IntentService("Service") {
         outputStream.flush()
         outputStream.close()
         inputStream.close()
-    }
-
-    private fun dirManage() {
-        val photosStore = File(Environment.getExternalStorageDirectory(), APP_STORE_DIR_NAME)
-        if (!photosStore.exists()) {
-            photosStore.mkdirs()
-        }
     }
 
     private fun updateNotification(currentProgress: Int) {

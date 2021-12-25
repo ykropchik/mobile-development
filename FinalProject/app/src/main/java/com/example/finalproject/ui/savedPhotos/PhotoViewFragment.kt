@@ -38,7 +38,6 @@ class PhotoViewFragment: Fragment() {
             Glide
                 .with(it)
                 .load(photoUri)
-                .override(Target.SIZE_ORIGINAL)
                 .into(photoView)
         }
         return root

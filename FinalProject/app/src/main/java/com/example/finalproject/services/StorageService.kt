@@ -10,6 +10,9 @@ class StorageService {
     fun getDownloadedIdList(): ArrayList<String> {
         val result = arrayListOf<String>()
         val appStore = File(Environment.getExternalStorageDirectory(), Constants.APP_STORE_DIR_NAME)
+        if (!appStore.exists()) {
+            appStore.mkdirs()
+        }
         for (file in appStore.listFiles()!!) {
             if (file.isFile) {
                 result.add(file.nameWithoutExtension)
